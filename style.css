@@ -1,0 +1,129 @@
+:root {
+  --text: #e8ecf8;
+  --muted: #9aa4c7;
+  --accent: #6cf2c2;
+
+  --overlay: rgba(10, 14, 28, 0.65);
+  --panel: rgba(18, 23, 42, 0.6);
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text);
+
+  background:
+    linear-gradient(var(--overlay), var(--overlay)),
+    url("./background.png") center / cover no-repeat fixed;
+}
+
+/* ================= NAV SLIDER ================= */
+.nav {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+
+  padding: 1.2rem;
+  background: rgba(10, 14, 28, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+.nav a {
+  position: relative;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 500;
+  padding-bottom: 6px;
+}
+
+.nav a.active {
+  color: var(--text);
+}
+
+.nav .slider {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 60px;
+  background: var(--accent);
+  transition: all 0.3s ease;
+}
+
+/* Move slider based on active link */
+.nav a:nth-child(1).active ~ .slider { transform: translateX(-110px); }
+.nav a:nth-child(2).active ~ .slider { transform: translateX(0); }
+.nav a:nth-child(3).active ~ .slider { transform: translateX(110px); }
+
+/* ================= HERO ================= */
+.hero {
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 800;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #6cf2c2, #5da9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  max-width: 700px;
+  margin: 1.5rem auto 2.5rem;
+  color: var(--muted);
+}
+
+/* IP BOX */
+.ip-box {
+  display: inline-block;
+  padding: 1rem 1.6rem;
+  border-radius: 14px;
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ================= PAGES ================= */
+.page {
+  max-width: 900px;
+  margin: auto;
+  padding: 5rem 2rem;
+}
+
+.page h2 {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
+
+/* CARD */
+.card {
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #000;
+  background: var(--accent);
+  font-weight: 600;
+}
