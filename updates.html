@@ -3,32 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>BrickSMP · Updates</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Top navigation / slider -->
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="map.html">Map</a>
     <a href="updates.html" class="active">Updates</a>
-    <span class="slider"></span>
   </nav>
 
   <main class="page">
-    <h2>Updates</h2>
+    <h1>Updates</h1>
+    <p class="muted">Live updates pulled from GitHub.</p>
 
-    <div class="card">
-      <p>
-        All server updates, changes, and development
-        progress are tracked publicly on GitHub.
-      </p>
-
-      <a class="button" href="https://github.com/YOUR-REPO-HERE" target="_blank">
-        View Updates on GitHub
-      </a>
+    <div id="updates" class="updates-list">
+      <p class="muted">Loading updates…</p>
     </div>
   </main>
 
+  <script src="updates.js"></script>
 </body>
 </html>
