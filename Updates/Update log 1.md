@@ -1,0 +1,11 @@
+#INITIAL UPDATE LOG FROM LAST SEASON
+
+1. VALHALLAMMO PREMIUM
+2. Hosted under ZYRALIS network.
+3. IP change: Bricksmp.minekeep.gg -> bricksmp.zyralis.net
+
+More updates to come
+
+Release date unconfirmed.
+
+Version: 1.21.8
