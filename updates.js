@@ -1,28 +1,45 @@
-const repoOwner = "YOUR_GITHUB_USERNAME";
-const repoName = "YOUR_REPO_NAME";
+// ===== CONFIG =====
+const owner = "Brick-Bread";         // GitHub username
+const repo = "BrickSMP-Zyralis";     // Repo name
+const folderPath = "Updates";        // Folder with .md updates
 
-const updatesContainer = document.getElementById("updates");
+const container = document.getElementById("update-content");
 
-fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/commits`)
+// ===== FETCH LIST OF FILES =====
+fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folderPath}`)
   .then(res => res.json())
-  .then(commits => {
-    updatesContainer.innerHTML = "";
+  .then(files => {
+    if (!Array.isArray(files) || files.length === 0) {
+      container.textContent = "No updates found.";
+      return;
+    }
 
-    commits.slice(0, 10).forEach(commit => {
-      const div = document.createElement("div");
-      div.className = "update-card";
+    // ===== FILTER ONLY .md FILES =====
+    const mdFiles = files.filter(f => f.name.endsWith(".md"));
+    if (mdFiles.length === 0) {
+      container.textContent = "No Markdown updates found.";
+      return;
+    }
 
-      div.innerHTML = `
-        <h3>${commit.commit.message}</h3>
-        <p>${commit.commit.author.name} · 
-        ${new Date(commit.commit.author.date).toLocaleDateString()}</p>
-        <a href="${commit.html_url}" target="_blank">View on GitHub</a>
-      `;
+    // ===== SORT ALPHABETICALLY (yyyy-mm-dd.md ensures latest last) =====
+    mdFiles.sort((a,b) => a.name.localeCompare(b.name));
 
-      updatesContainer.appendChild(div);
-    });
+    const latestFile = mdFiles[mdFiles.length - 1];
+
+    // ===== EXTRACT DATE FROM FILENAME =====
+    const dateMatch = latestFile.name.match(/(\d{4}-\d{2}-\d{2})/);
+    const updateDate = dateMatch ? dateMatch[1] : "Unknown Date";
+
+    // ===== FETCH RAW CONTENT =====
+    return fetch(latestFile.download_url)
+      .then(res => res.text())
+      .then(mdText => {
+        container.innerHTML = `
+          <h2>${updateDate}</h2>
+          <div class="md-content">${marked.parse(mdText)}</div>
+        `;
+      });
   })
   .catch(() => {
-    updatesContainer.innerHTML =
-      "<p class='muted'>Failed to load updates.</p>";
+    container.textContent = "Failed to load update.";
   });
