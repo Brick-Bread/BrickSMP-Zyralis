@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BrickSMP · Updates</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrickSMP • Updates</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Markdown renderer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
-  <!-- Top navigation / slider -->
-  <nav class="nav">
+  <!-- Background image -->
+  <div class="background"></div>
+
+  <!-- Frosted overlay -->
+  <div class="overlay"></div>
+
+  <!-- Top navigation / page selector -->
+  <nav class="top-nav">
     <a href="index.html">Home</a>
     <a href="map.html">Map</a>
     <a href="updates.html" class="active">Updates</a>
   </nav>
 
-  <main class="page">
-    <h1>Updates</h1>
-    <p class="muted">Live updates pulled from GitHub.</p>
+  <!-- Updates feed -->
+  <main class="updates-feed">
 
-    <div id="updates" class="updates-list">
-      <p class="muted">Loading updates…</p>
+    <!-- JS injects content here -->
+    <div id="update-content">
+      <div class="post loading">
+        Loading latest update…
+      </div>
     </div>
+
   </main>
 
+  <!-- Footer -->
+  <footer>
+    <p>BrickSMP • Zyralis Network</p>
+  </footer>
+
+  <!-- Updates script -->
   <script src="updates.js"></script>
 </body>
 </html>
