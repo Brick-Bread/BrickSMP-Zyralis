@@ -1,45 +1,49 @@
-// ===== CONFIG =====
-const owner = "Brick-Bread";         // GitHub username
-const repo = "BrickSMP-Zyralis";     // Repo name
-const folderPath = "Updates";        // Folder with .md updates
+const owner = "Brick-Bread";
+const repo = "BrickSMP-Zyralis";
+const folderPath = "Updates";
 
 const container = document.getElementById("update-content");
 
-// ===== FETCH LIST OF FILES =====
-fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folderPath}`)
-  .then(res => res.json())
+const apiURL = `https://api.github.com/repos/${owner}/${repo}/contents/${folderPath}`;
+
+function parseDate(name) {
+  // converts 2026-1-21.md → Date
+  const clean = name.replace(".md", "");
+  return new Date(clean);
+}
+
+fetch(apiURL)
+  .then(res => {
+    if (!res.ok) throw new Error("GitHub API failed");
+    return res.json();
+  })
   .then(files => {
-    if (!Array.isArray(files) || files.length === 0) {
-      container.textContent = "No updates found.";
-      return;
-    }
-
-    // ===== FILTER ONLY .md FILES =====
     const mdFiles = files.filter(f => f.name.endsWith(".md"));
+
     if (mdFiles.length === 0) {
-      container.textContent = "No Markdown updates found.";
+      container.textContent = "No updates available.";
       return;
     }
 
-    // ===== SORT ALPHABETICALLY (yyyy-mm-dd.md ensures latest last) =====
-    mdFiles.sort((a,b) => a.name.localeCompare(b.name));
+    mdFiles.sort((a, b) => parseDate(a.name) - parseDate(b.name));
+    const latest = mdFiles.at(-1);
 
-    const latestFile = mdFiles[mdFiles.length - 1];
-
-    // ===== EXTRACT DATE FROM FILENAME =====
-    const dateMatch = latestFile.name.match(/(\d{4}-\d{2}-\d{2})/);
-    const updateDate = dateMatch ? dateMatch[1] : "Unknown Date";
-
-    // ===== FETCH RAW CONTENT =====
-    return fetch(latestFile.download_url)
+    return fetch(latest.download_url)
       .then(res => res.text())
-      .then(mdText => {
+      .then(md => {
         container.innerHTML = `
-          <h2>${updateDate}</h2>
-          <div class="md-content">${marked.parse(mdText)}</div>
+          <h2>${latest.name.replace(".md", "")}</h2>
+          <div class="md-content">
+            ${marked.parse(md)}
+          </div>
         `;
       });
   })
-  .catch(() => {
-    container.textContent = "Failed to load update.";
+  .catch(err => {
+    console.error(err);
+    container.innerHTML = `
+      <p style="color:#f87171;">
+        Failed to load update.
+      </p>
+    `;
   });
