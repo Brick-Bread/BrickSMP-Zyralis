@@ -2,33 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>BrickSMP · Updates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrickSMP Zyralis | Updates</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="map.html">Map</a>
-    <a href="updates.html" class="active">Updates</a>
-    <span class="slider"></span>
-  </nav>
+<header class="nav">
+  <div class="container">
+    <h1 class="logo">BrickSMP Zyralis</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="updates.html">Updates</a>
+      <a href="#" id="discordLink">Discord</a>
+    </nav>
+  </div>
+</header>
 
-  <main class="page">
-    <h2>Updates</h2>
+<section class="page-header">
+  <h2>Server Updates</h2>
+  <p>Fresh patch notes direct from the updates folder.</p>
+</section>
 
-    <div class="card">
-      <p>
-        All server updates, changes, and development
-        progress are tracked publicly on GitHub.
-      </p>
+<section class="container updates" id="updates">
+  <p class="loading">Fetching updates…</p>
+</section>
 
-      <a class="button" href="https://github.com/YOUR-REPO-HERE" target="_blank">
-        View Updates on GitHub
-      </a>
-    </div>
-  </main>
+<script>
+const owner = "Brick-Bread";
+const repo = "BrickSMP-Zyralis";
+const updatesPath = "updates";
+const branch = "main";
+
+const updatesContainer = document.getElementById("updates");
+
+// Step 1 — list files in the updates folder
+fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${updatesPath}?ref=${branch}`)
+  .then(res => res.json())
+  .then(files => {
+    updatesContainer.innerHTML = ""; // clear loading
+
+    files
+      .filter(f => f.type === "file")
+      .sort((a, b) => b.name.localeCompare(a.name)) // newest first by filename
+      .forEach(file => loadUpdate(file));
+  })
+  .catch(err => {
+    updatesContainer.innerHTML = "<p>Couldn’t load updates.</p>";
+    console.error(err);
+  });
+
+// Step 2 — fetch each file and render it
+function loadUpdate(file) {
+  fetch(file.download_url)
+    .then(res => res.text())
+    .then(content => {
+      // Parse out a title from first line if present
+      const lines = content.split("\n");
+      let title = file.name;
+      if (lines[0].startsWith("#")) {
+        title = lines[0].replace(/^#+\s*/, "").trim();
+      }
+
+      // Create the blob card
+      const card = document.createElement("div");
+      card.className = "update-card blob";
+
+      card.innerHTML = `
+        <div class="update-header">
+          <h3>${title}</h3>
+          <span class="date">${file.name.split(".")[0]}</span>
+        </div>
+        <pre class="update-body">${content}</pre>
+      `;
+
+      updatesContainer.appendChild(card);
+    });
+}
+</script>
 
 </body>
 </html>
