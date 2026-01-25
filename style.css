@@ -1,271 +1,105 @@
-/* =========================
-   GLOBAL RESET & BASE
-   ========================= */
-
+/* General reset & background */
 * {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: "Segoe UI", system-ui, sans-serif;
-  color: #e6edf3;
-
-  background:
-    linear-gradient(
-      rgba(13, 17, 23, 0.75),
-      rgba(13, 17, 23, 0.75)
-    ),
-    url("background.png");
-
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    background: url('background.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #eee;
 }
 
-/* =========================
-   REUSABLE GLASS PANEL
-   ========================= */
-
+/* Frosted glass panels */
 .glass {
-  background: rgba(140, 140, 140, 0.18);
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-
-  padding: 28px;
+    background: rgba(50, 50, 50, 0.5); /* semi-transparent gray */
+    backdrop-filter: blur(10px);       /* frosted blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1000px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-/* =========================
-   LAYOUT
-   ========================= */
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 40px 20px;
+/* Headers */
+h1, h2, h3 {
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
 }
 
-/* =========================
-   NAVIGATION
-   ========================= */
+/* Links */
+a {
+    color: #a0c8ff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
 
+/* Nav bar */
 .nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-
-  background: rgba(140, 140, 140, 0.18);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.nav .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-}
-
-.logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(50, 50, 50, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .nav a {
-  color: #e6edf3;
-  text-decoration: none;
-  margin-left: 18px;
-  font-weight: 500;
-  opacity: 0.85;
+    margin-left: 20px;
 }
 
-.nav a:hover {
-  opacity: 1;
-}
-
-/* =========================
-   HERO / PAGE HEADER
-   ========================= */
-
-.hero,
+/* Page headers */
 .page-header {
-  max-width: 1100px;
-  margin: 40px auto;
+    text-align: center;
+    margin-top: 100px; /* leave space for fixed nav */
 }
 
-.hero.glass,
-.page-header.glass {
-  text-align: center;
-}
-
-.hero h2,
-.page-header h2 {
-  font-size: 2.4rem;
-  margin-bottom: 10px;
-}
-
-.hero p,
-.page-header p {
-  font-size: 1.1rem;
-  opacity: 0.85;
-}
-
-.btn {
-  display: inline-block;
-  margin-top: 18px;
-  padding: 12px 28px;
-
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
-
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-.server-ip {
-  margin-top: 10px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-/* =========================
-   FEATURES GRID
-   ========================= */
-
-.features .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-}
-
-.feature-card {
-  background: rgba(140, 140, 140, 0.16);
-  backdrop-filter: blur(14px);
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.15);
-
-  padding: 22px;
-}
-
-.feature-card h4 {
-  margin-top: 0;
-}
-
-/* =========================
-   UPDATES PAGE
-   ========================= */
-
-.updates {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
+/* Update cards (blob style) */
 .update-card {
-  background: rgba(140, 140, 140, 0.16);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.45);
-
-  padding: 24px;
-  animation: fadeIn 0.4s ease;
-}
-
-.update-card:hover {
-  transform: translateY(-3px);
+    background: rgba(70, 70, 70, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 16px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
 }
 
 .update-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.update-header h3 {
-  margin: 0;
-  font-size: 1.3rem;
-}
-
-.date {
-  font-size: 0.85rem;
-  opacity: 0.65;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .update-body {
-  white-space: pre-wrap;
-  line-height: 1.6;
-  border-top: 1px solid rgba(255,255,255,0.15);
-  padding-top: 14px;
-  font-family: "Consolas", monospace;
+    line-height: 1.5;
 }
 
-/* =========================
-   FOOTER
-   ========================= */
-
-.footer {
-  text-align: center;
-  padding: 30px 20px;
-  opacity: 0.7;
-  font-size: 0.9rem;
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: #ccc;
 }
 
-/* =========================
-   MISC
-   ========================= */
-
-.loading {
-  text-align: center;
-  opacity: 0.7;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
-   MOBILE TWEAKS
-   ========================= */
-
-@media (max-width: 700px) {
-  .hero h2,
-  .page-header h2 {
-    font-size: 1.9rem;
-  }
-
-  .nav a {
-    margin-left: 12px;
-  }
+/* Container helper */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
