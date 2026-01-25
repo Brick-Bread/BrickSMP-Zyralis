@@ -1,6 +1,6 @@
 const OWNER = "Brick-Bread";
 const REPO = "BrickSMP-Zyralis";
-const PATH = "Updates";
+const PATH = "Updates"; // ⚡ Case-sensitive, must match the folder on main branch
 const BRANCH = "main";
 
 const container = document.getElementById("updates");
@@ -11,12 +11,12 @@ fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}?ref=${BRAN
     return res.json();
   })
   .then(files => {
-    container.innerHTML = "";
+    container.innerHTML = ""; // Clear "Loading..." text
 
     files
       .filter(f => f.type === "file")
-      .sort((a, b) => b.name.localeCompare(a.name))
-      .forEach(loadUpdate);
+      .sort((a, b) => b.name.localeCompare(a.name)) // newest first
+      .forEach(file => loadUpdate(file));
   })
   .catch(err => {
     console.error(err);
@@ -30,6 +30,7 @@ function loadUpdate(file) {
       const lines = text.split("\n");
       let title = file.name;
 
+      // Use first line if it’s a markdown header
       if (lines[0].startsWith("#")) {
         title = lines.shift().replace(/^#+\s*/, "");
       }
