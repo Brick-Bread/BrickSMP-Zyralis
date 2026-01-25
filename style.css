@@ -1,79 +1,271 @@
-/* Base reset + font */
-body {
+/* =========================
+   GLOBAL RESET & BASE
+   ========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #0d1117;
-  color: #c9d1d9;
+  padding: 0;
 }
 
-/* Navigation */
-.nav {
-  background: #161b22;
-  padding: 15px;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
-.nav .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.nav a {
-  color: #c9d1d9;
-  margin-left: 15px;
-  text-decoration: none;
-}
-.logo {
-  font-size: 1.8rem;
-  font-weight: bold;
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #e6edf3;
+
+  background:
+    linear-gradient(
+      rgba(13, 17, 23, 0.75),
+      rgba(13, 17, 23, 0.75)
+    ),
+    url("background.png");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-/* Hero */
-.hero {
-  text-align: center;
-  padding: 80px 20px;
-  background: url('background.png') center/cover no-repeat;
-  color: #fff;
-}
-.hero .btn {
-  padding: 12px 28px;
-  background: #ff6a00;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-}
-.server-ip {
-  margin-top: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
+/* =========================
+   REUSABLE GLASS PANEL
+   ========================= */
+
+.glass {
+  background: rgba(140, 140, 140, 0.18);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+
+  padding: 28px;
 }
 
-/* Sections */
+/* =========================
+   LAYOUT
+   ========================= */
+
 .container {
   max-width: 1100px;
   margin: auto;
   padding: 40px 20px;
 }
-.features .grid {
-  display: flex;
-  gap: 20px;
-}
-.feature-card {
-  background: #161b22;
-  padding: 20px;
-  flex: 1;
-  border-radius: 8px;
+
+/* =========================
+   NAVIGATION
+   ========================= */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(140, 140, 140, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Footer */
+.nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nav a {
+  color: #e6edf3;
+  text-decoration: none;
+  margin-left: 18px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.nav a:hover {
+  opacity: 1;
+}
+
+/* =========================
+   HERO / PAGE HEADER
+   ========================= */
+
+.hero,
+.page-header {
+  max-width: 1100px;
+  margin: 40px auto;
+}
+
+.hero.glass,
+.page-header.glass {
+  text-align: center;
+}
+
+.hero h2,
+.page-header h2 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.hero p,
+.page-header p {
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 12px 28px;
+
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.server-ip {
+  margin-top: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   FEATURES GRID
+   ========================= */
+
+.features .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: rgba(140, 140, 140, 0.16);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+
+  padding: 22px;
+}
+
+.feature-card h4 {
+  margin-top: 0;
+}
+
+/* =========================
+   UPDATES PAGE
+   ========================= */
+
+.updates {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.update-card {
+  background: rgba(140, 140, 140, 0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+
+  padding: 24px;
+  animation: fadeIn 0.4s ease;
+}
+
+.update-card:hover {
+  transform: translateY(-3px);
+}
+
+.update-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.update-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.date {
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+
+.update-body {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 14px;
+  font-family: "Consolas", monospace;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
 .footer {
   text-align: center;
-  padding: 20px;
-  background: #161b22;
+  padding: 30px 20px;
+  opacity: 0.7;
   font-size: 0.9rem;
 }
-.footer a {
-  color: #58a6ff;
+
+/* =========================
+   MISC
+   ========================= */
+
+.loading {
+  text-align: center;
+  opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE TWEAKS
+   ========================= */
+
+@media (max-width: 700px) {
+  .hero h2,
+  .page-header h2 {
+    font-size: 1.9rem;
+  }
+
+  .nav a {
+    margin-left: 12px;
+  }
 }
