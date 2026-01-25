@@ -1,22 +1,29 @@
-/* General reset & background */
+/* Reset & box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Full-page background */
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
     background: url('background.png') no-repeat center center fixed;
     background-size: cover;
     color: #eee;
+    line-height: 1.5;
+    min-height: 100vh;
 }
 
 /* Frosted glass panels */
 .glass {
-    background: rgba(50, 50, 50, 0.5); /* semi-transparent gray */
-    backdrop-filter: blur(10px);       /* frosted blur effect */
+    background: rgba(50, 50, 50, 0.5);
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -26,22 +33,7 @@ body {
     box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-/* Headers */
-h1, h2, h3 {
-    color: #fff;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-}
-
-/* Links */
-a {
-    color: #a0c8ff;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-
-/* Nav bar */
+/* Navigation bar */
 .nav {
     width: 100%;
     position: fixed;
@@ -58,8 +50,21 @@ a:hover {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.nav .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
 .nav a {
+    color: #a0c8ff;
+    text-decoration: none;
     margin-left: 20px;
+    transition: 0.2s;
+}
+
+.nav a:hover {
+    text-decoration: underline;
 }
 
 /* Page headers */
@@ -68,7 +73,18 @@ a:hover {
     margin-top: 100px; /* leave space for fixed nav */
 }
 
-/* Update cards (blob style) */
+.page-header h2 {
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+}
+
+.page-header p {
+    color: #ccc;
+    margin-top: 5px;
+}
+
+/* Update cards */
 .update-card {
     background: rgba(70, 70, 70, 0.5);
     border-radius: 12px;
@@ -83,6 +99,16 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.update-header h3 {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.update-header .date {
+    font-size: 0.9rem;
+    color: #ccc;
 }
 
 .update-body {
