@@ -1,6 +1,6 @@
 const OWNER = "Brick-Bread";
 const REPO = "BrickSMP-Zyralis";
-const PATH = "updates";
+const PATH = "Updates";
 const BRANCH = "main";
 
 const container = document.getElementById("updates");
