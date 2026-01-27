@@ -1,33 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BrickSMP | Home</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BrickSMP — Zyralis</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<header class="nav">
-  <div class="logo">BrickSMP</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="updates.html">Updates</a>
-    <a href="https://discord.gg/YOURINVITE" target="_blank">Discord</a>
-  </nav>
-</header>
+  <!-- Background layers:
+       - background.png placed at website/assets/images/background.png will be used automatically
+       - layered neon gradient overlay provides the "Lunar-like" glow
+  -->
+  <div class="bg-overlay" aria-hidden="true"></div>
 
-<section class="container glass page-header">
-  <h2>Welcome to BrickSMP</h2>
-  <p>The ultimate MMO Minecraft server experience</p>
-</section>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <img src="assets/images/logo-placeholder.png" alt="Logo" class="brand-logo" />
+        <span class="brand-text">BrickSMP</span>
+      </a>
 
-<section class="container glass">
-  <h3>About the Server</h3>
-  <p>BrickSMP is a persistent MMO-style server with custom plugins, live events, and a thriving community. Explore, build, fight, and progress with other players!</p>
-</section>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#screens">Screens</a></li>
+          <li><a href="#download">Download</a></li>
+          <li><a href="#join">Join</a></li>
+        </ul>
+      </nav>
 
-<footer>
-  &copy; 2026 BrickSMP | All rights reserved
-</footer>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>Play on Zyralis — A fast, polished SMP experience</h1>
+          <p class="tagline">Optimized performance, vibrant community, and unique features — ready to jump in?</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#download">Download</a>
+            <a class="btn btn-ghost" href="#join">Join Server</a>
+          </div>
+          <p class="muted">Server: play.zyralis.example (replace with your IP)</p>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="mock-window">
+            <img src="assets/images/screen-placeholder.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features container">
+      <h2 class="section-title">Features</h2>
+      <div class="grid features-grid">
+        <article class="card">
+          <h3>Performance Tweaks</h3>
+          <p>Server-side optimizations and client-friendly settings for smooth play.</p>
+        </article>
+        <article class="card">
+          <h3>Custom Economy</h3>
+          <p>Rich economy plugins and player-driven markets.</p>
+        </article>
+        <article class="card">
+          <h3>Events & Community</h3>
+          <p>Regular events, active staff, and friendly players.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="screens" class="screens container">
+      <h2 class="section-title">Screenshots</h2>
+      <div class="grid screenshot-grid">
+        <div class="screenshot"><img src="assets/images/shot1.png" alt="screenshot 1"></div>
+        <div class="screenshot"><img src="assets/images/shot2.png" alt="screenshot 2"></div>
+        <div class="screenshot"><img src="assets/images/shot3.png" alt="screenshot 3"></div>
+      </div>
+    </section>
+
+    <section id="download" class="download container">
+      <h2 class="section-title">Download</h2>
+      <p>Get the recommended client and connect quickly.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#" download>Download Client</a>
+        <a class="btn btn-ghost" href="#">Installation Guide</a>
+      </div>
+    </section>
+
+    <section id="join" class="join container">
+      <h2 class="section-title">Join</h2>
+      <p class="muted">Connect to: <strong>play.zyralis.example</strong></p>
+      <a class="btn btn-primary" href="#">Join Now</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> BrickSMP — Zyralis</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
