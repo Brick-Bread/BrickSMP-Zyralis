@@ -1,116 +1,195 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BrickSMP — Zyralis</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bricksmp | Zyralis Network</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --dark: rgba(0, 0, 0, 0.5);
+            --light: #e8e8e8;
+            --accent: #ff9f1c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: url('https://i.postimg.cc/Gpn4YBLh/background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .frosted-glass {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(90deg, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #e68a00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .feature {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .feature h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            border-radius: 10px 10px 0 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Background layers:
-       - background.png placed at website/assets/images/background.png will be used automatically
-       - layered neon gradient overlay provides the "Lunar-like" glow
-  -->
-  <div class="bg-overlay" aria-hidden="true"></div>
+    <header class="frosted-glass">
+        <div class="container">
+            <h1>Bricksmp</h1>
+            <p>Join our Minecraft server on the Zyralis Network</p>
+            <a href="play.zyralis.xyz" class="btn">Join Now</a>
+        </div>
+    </header>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#">
-        <img src="assets/images/logo-placeholder.png" alt="Logo" class="brand-logo" />
-        <span class="brand-text">BrickSMP</span>
-      </a>
-
-      <nav class="main-nav" id="mainNav">
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#screens">Screens</a></li>
-          <li><a href="#download">Download</a></li>
-          <li><a href="#join">Join</a></li>
-        </ul>
-      </nav>
-
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <h1>Play on Zyralis — A fast, polished SMP experience</h1>
-          <p class="tagline">Optimized performance, vibrant community, and unique features — ready to jump in?</p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#download">Download</a>
-            <a class="btn btn-ghost" href="#join">Join Server</a>
-          </div>
-          <p class="muted">Server: play.zyralis.example (replace with your IP)</p>
+    <div class="content">
+        <div class="frosted-glass section">
+            <h2>About Bricksmp</h2>
+            <p>Bricksmp is a Minecraft server on the Zyralis Network offering a unique gaming experience with custom plugins and dedicated staff.</p>
         </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="mock-window">
-            <img src="assets/images/screen-placeholder.png" alt="" />
-          </div>
+        <div class="frosted-glass section">
+            <h2>Security Features</h2>
+            <div class="feature">
+                <h3>Dedicated Staff</h3>
+                <p>Our staff are dedicated to keeping you safe and punishing cheaters</p>
+            </div>
+            <div class="feature">
+                <h3>Anticheat</h3>
+                <p>We use a premium anticheat that makes sure hackers are kept out</p>
+            </div>
+            <div class="feature">
+                <h3>Chat Filters</h3>
+                <p>We use live chat logging and filtering to stop players from acting vulgar or derogatory to other players</p>
+            </div>
         </div>
-      </div>
-    </section>
 
-    <section id="features" class="features container">
-      <h2 class="section-title">Features</h2>
-      <div class="grid features-grid">
-        <article class="card">
-          <h3>Performance Tweaks</h3>
-          <p>Server-side optimizations and client-friendly settings for smooth play.</p>
-        </article>
-        <article class="card">
-          <h3>Custom Economy</h3>
-          <p>Rich economy plugins and player-driven markets.</p>
-        </article>
-        <article class="card">
-          <h3>Events & Community</h3>
-          <p>Regular events, active staff, and friendly players.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="screens" class="screens container">
-      <h2 class="section-title">Screenshots</h2>
-      <div class="grid screenshot-grid">
-        <div class="screenshot"><img src="assets/images/shot1.png" alt="screenshot 1"></div>
-        <div class="screenshot"><img src="assets/images/shot2.png" alt="screenshot 2"></div>
-        <div class="screenshot"><img src="assets/images/shot3.png" alt="screenshot 3"></div>
-      </div>
-    </section>
-
-    <section id="download" class="download container">
-      <h2 class="section-title">Download</h2>
-      <p>Get the recommended client and connect quickly.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#" download>Download Client</a>
-        <a class="btn btn-ghost" href="#">Installation Guide</a>
-      </div>
-    </section>
-
-    <section id="join" class="join container">
-      <h2 class="section-title">Join</h2>
-      <p class="muted">Connect to: <strong>play.zyralis.example</strong></p>
-      <a class="btn btn-primary" href="#">Join Now</a>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>© <span id="year"></span> BrickSMP — Zyralis</div>
-      <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Discord</a>
-      </div>
+        <div class="frosted-glass section">
+            <h2>Premium Plugins</h2>
+            <div class="feature">
+                <h3>Valhallammo</h3>
+                <p>Our premium Valhallammo plugin offers enhanced combat mechanics and custom weapons. This is a paid plugin available for purchase.</p>
+            </div>
+        </div>
     </div>
-  </footer>
 
-  <script src="assets/js/main.js"></script>
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Bricksmp | Zyralis Network. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
+
+
