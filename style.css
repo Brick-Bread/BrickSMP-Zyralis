@@ -1,137 +1,67 @@
-:root{
-  --bg-1: #0f1115;
-  --bg-2: #0a0b0f;
-  --card: rgba(255,255,255,0.04);
-  --accent-1: #00ffd5;
-  --accent-2: #4ad0ff;
-  --glass: rgba(255,255,255,0.03);
-  --muted: rgba(255,255,255,0.6);
-  --radius: 12px;
-  --max-width: 1100px;
-  --container-padding: 20px;
+// Simple interactive behavior: menu toggle + reveal + background parallax
+document.addEventListener('DOMContentLoaded', function(){
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+  menuToggle && menuToggle.addEventListener('click', () => {
+    mainNav.classList.toggle('open');
+  });
 
-  /* dynamic background transform controlled by JS for parallax */
-  --bg-x: 0px;
-  --bg-y: 0px;
-}
+  // Set year
+  const yearEl = document.getElementById('year');
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* Background image layer:
-   - Place website/assets/images/background.png to use it.
-   - Uses a subtle blur/brightness and transforms slightly for parallax.
-*/
-:root {
-  --bg-image: url('../images/background.png');
-}
+  // Simple reveal on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, {threshold: 0.12});
+  document.querySelectorAll('.card, .screenshot, .mock-window, .hero-copy').forEach(el => observer.observe(el));
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: radial-gradient(1200px 600px at 10% 10%, rgba(74,208,255,0.06), transparent), linear-gradient(180deg,var(--bg-1),var(--bg-2));
-  color:#fff;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.4;
-  overflow-x:hidden;
-  position:relative;
-}
+  // Background parallax effect:
+  // Moves the background slightly based on mouse position (subtle) to emulate the LunarClient background motion.
+  // Works only if the CSS variable --bg-image points to an existing file (assets/images/background.png).
+  (function setupBackgroundParallax() {
+    const root = document.documentElement;
+    let lastX = 0, lastY = 0, raf = null;
 
-/* The actual background image (placed under everything) */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-3;
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transform: translate3d(var(--bg-x), var(--bg-y), 0) scale(1.06);
-  transition: transform 120ms linear;
-  filter: blur(8px) brightness(0.46) saturate(1.12);
-  will-change: transform;
-  pointer-events: none;
-}
+    function onMove(e){
+      // Normalize mouse position -0.5..0.5
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
 
-/* Neon gradient overlay (fades + blend to achieve Lunar-like glow) */
-.bg-overlay{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  pointer-events:none;
-  background:
-    radial-gradient(1200px 600px at 10% 15%, rgba(74,208,255,0.08), transparent 10%),
-    radial-gradient(800px 400px at 85% 80%, rgba(0,255,213,0.04), transparent 12%),
-    linear-gradient(180deg, rgba(6,6,8,0.35), rgba(6,6,8,0.55));
-  mix-blend-mode: screen;
-  opacity:0.98;
-  transition: opacity 300ms ease;
-}
+      // Scale to px move (small)
+      const tx = (-x) * 18; // horizontal movement range
+      const ty = (-y) * 12; // vertical movement range
 
-/* Container */
-.container{max-width:var(--max-width);margin:0 auto;padding:40px var(--container-padding)}
+      lastX = `${tx}px`;
+      lastY = `${ty}px`;
 
-/* Header */
-.site-header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg, rgba(6,6,8,0.45), transparent);backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
-.brand-logo{width:40px;height:40px;object-fit:contain;border-radius:8px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));padding:4px}
-.brand-text{font-weight:700;letter-spacing:0.6px}
+      if(!raf){
+        raf = requestAnimationFrame(() => {
+          root.style.setProperty('--bg-x', lastX);
+          root.style.setProperty('--bg-y', lastY);
+          raf = null;
+        });
+      }
+    }
 
-/* Nav */
-.main-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:18px}
-.main-nav a{text-decoration:none;color:var(--muted);font-weight:600}
-.main-nav a:hover{color:var(--accent-2)}
+    // Reduce motion for users who prefer reduced motion
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(mq && mq.matches) return;
 
-/* Menu toggle (mobile) */
-.menu-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
-.menu-toggle span{display:block;width:22px;height:2px;background:var(--muted);margin:4px 0;border-radius:2px}
+    // Only attach on pointer-capable devices
+    window.addEventListener('pointermove', onMove, {passive:true});
 
-/* Hero */
-.hero{padding:60px 0}
-.hero-inner{display:flex;gap:40px;align-items:center;justify-content:space-between}
-.hero-copy{flex:1;max-width:640px}
-.hero h1{font-size:2.6rem;margin:0 0 12px;color: #fff;line-height:1.02}
-.tagline{color:var(--muted);margin:0 0 18px}
-.cta-row{display:flex;gap:12px;margin:18px 0}
-.btn{display:inline-block;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700}
-.btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#051018;box-shadow:0 6px 30px rgba(74,208,255,0.08);border:0}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-
-/* Visual mock */
-.hero-visual{width:420px;flex:0 0 420px}
-.mock-window{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.03)}
-.mock-window img{width:100%;display:block;border-radius:8px}
-
-/* Features */
-.section-title{font-size:1.4rem;margin-bottom:18px}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
-.card h3{margin:0 0 8px}
-
-/* Screenshots */
-.screenshot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.screenshot img{width:100%;border-radius:8px;display:block}
-
-/* Footer */
-.site-footer{padding:20px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-.footer-inner{display:flex;justify-content:space-between;align-items:center}
-
-/* Utilities */
-.muted{color:var(--muted)}
-.visible{opacity:1;transform:none;transition:opacity .48s ease, transform .48s cubic-bezier(.2,.9,.2,1);}
-.card, .screenshot, .mock-window, .hero-copy{opacity:0; transform:translateY(8px);}
-
-/* Responsive */
-@media(max-width:900px){
-  .hero-inner{flex-direction:column;align-items:stretch}
-  .hero-visual{width:100%;order:2}
-  .main-nav{position:fixed;right:0;top:64px;background:linear-gradient(180deg, rgba(6,6,8,0.9), rgba(6,6,8,0.95));padding:20px;border-left:1px solid rgba(255,255,255,0.03);transform:translateX(120%);transition:transform .28s ease;min-width:240px}
-  .main-nav.open{transform:translateX(0)}
-  .main-nav ul{flex-direction:column;gap:12px}
-  .menu-toggle{display:block}
-  .features-grid{grid-template-columns:1fr}
-  .screenshot-grid{grid-template-columns:1fr}
-  .container{padding:20px}
-}
+    // Small parallax on scroll too (subtle)
+    let lastScroll = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const s = window.scrollY;
+      const delta = (s - lastScroll) * 0.05;
+      lastScroll = s;
+      // add vertical offset based on scroll (limits)
+      const offsetY = Math.max(Math.min(parseFloat(getComputedStyle(root).getPropertyValue('--bg-y')) || 0, 100), -100);
+      root.style.setProperty('--bg-y', `calc(${offsetY}px - ${delta}px)`);
+    }, {passive:true});
+  })();
+});
