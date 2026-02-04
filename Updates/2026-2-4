@@ -1,0 +1,14 @@
+# BrickSMP S4 Changelog #1
+## QOL change
+1. PlayerSleepPercentage changed to 10%
+## Other Updates
+1. Player referrals | /refer (gives referral code to player) | /usecode "referral code" (give this to referred player)
+2. Chat filtering changes
+3. Edited main body text on website
+4. Removal of ASL (MOTD plugin / server list plugin. this is no longer needed as all server list operations are covered by Zyralis)
+5. Discord Partnerships are now available
+
+## Plans:
+1. Media Rank
+2. Economy
+3. ...Many More...
